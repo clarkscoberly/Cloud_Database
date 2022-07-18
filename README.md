@@ -4,8 +4,7 @@
 
 To use my program is as easy as just typing in an item and it will add it to the database. The purpose for doing this is to start my journey on working with cloud databases on ever more complex and intricate systems giving me a jumping platform to create and learn.
 
-### TODO make video and put URL here
-[Software Demo Video](http://youtube.link.goes.here)
+[Software Demo Video](https://youtu.be/mntWlDdiE2Y)
 
 ## Cloud Database
 
