@@ -2,19 +2,14 @@
 
 ## Overview
 
-{Provide a description the software that you wrote and how it integrates with a Cloud Database.  Describe how to use your program.}
+To use my program is as easy as just typing in an item and it will add it to the database. The purpose for doing this is to start my journey on working with cloud databases on ever more complex and intricate systems giving me a jumping platform to create and learn.
 
-{Describe your purpose for writing this software.}
-
-{Provide a link to your YouTube demonstration.  It should be a 4-5 minute demo of the software running, a walkthrough of the code, and a view of the cloud database.}
-
+### TODO make video and put URL here
 [Software Demo Video](http://youtube.link.goes.here)
 
 ## Cloud Database
 
-{Describe the cloud database you are using.}
-
-{Describe the structure of the database that you created.}
+Firebase was used with "buckets" that contained various infomation types. The currently implemented *MENU* stores Strings and floats
 
 ## Development Environment
 
