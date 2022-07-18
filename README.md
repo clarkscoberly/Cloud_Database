@@ -1,6 +1,6 @@
 # Cloud_Databases
 
-# Overview
+## Overview
 
 {Provide a description the software that you wrote and how it integrates with a Cloud Database.  Describe how to use your program.}
 
@@ -10,27 +10,24 @@
 
 [Software Demo Video](http://youtube.link.goes.here)
 
-# Cloud Database
+## Cloud Database
 
 {Describe the cloud database you are using.}
 
 {Describe the structure of the database that you created.}
 
-# Development Environment
+## Development Environment
 
-{Describe the tools that you used to develop the software}
+For this project currently my time was spent in python within Visual Studio Code. Using Google's Cloud Firebase store I was able to call the server and update information from the terminal.
 
-{Describe the programming language that you used and any libraries.}
+## Useful Websites
 
-# Useful Websites
+* [FireBase](https://console.firebase.google.com/u/0/)
+* [FireStore](https://firebase.google.com/docs/firestore)
 
-{Make a list of websites that you found helpful in this project}
-* [Web Site Name](http://url.link.goes.here)
-* [Web Site Name](http://url.link.goes.here)
+## Future Work
 
-# Future Work
-
-{Make a list of things that you need to fix, improve, and add in the future.}
-* Item 1
-* Item 2
-* Item 3
+* Ability to delete an item
+* Ability to select which inventory section you wish to be in (Employee, Menu, etc.)
+* Add more user interaction and a cleaner printing statement
+* Add Javascript to make a web system that can handle the input from the browser rather than a terminal
