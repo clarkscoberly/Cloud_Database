@@ -1,61 +1,106 @@
-"""
-Creator: Clark Coberly
-Date: 5/11/2022
-Purpose: Grow skills as a programmer and have a little fun making a simple calculator.
-"""
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import firestore
 
-# Plan:
+# -- TODO figure out the correct credential call here --
+cred = credentials.Certificate("REMOVED FOR SECURITY")
+firebase_admin.initialize_app(cred, {
+    "projectId": "menu-1dbeb",
+})
 
-# User puts in a line of text that they would like to have calulated, split into it's various parts
-operator_stack = []
-expression = []
-integer_stack = []
-integers = ''
-split_expression = False
+db = firestore.client()
 
-print('-------------------------------------\n WELCOME TO YOUR FAVORITE CALCULATOR')
-user_request = input('Type in your algebraic expression: ')
-
-# Checks each element within the string to determine how the numbers should be split up and manipulated.
-for i in range(len(user_request)):
-    if user_request[i] in ('+', '-', '*', '//', '%', '^', '/'):
-        operator_stack.append(user_request[i])
-        split_expression = True
-
-        # If there is not an operator than the number must be a continuation of the previous number
-
-    # Checks to see if it is the last item in user_request and adds final integer to the integers.
-    if i + 1 == int(len(user_request)):
-        split_expression = True
-        integers = (integers + user_request[i])
-
-    if not split_expression:
-        integers = (integers + user_request[i])
+# Menu
+def menu():
+    """Prints a menu to the terminal for the user to interact with
+    No parameters, returns an INT"""
+    print("\nSelect from the following:")
+    print("1. Add Item")
+    print("2. Check All Items")
+    print("3. Delete Item")
+    print("4. End\n\n")
     
-        
+    # See where the user wants to go next
+    return int(input())
+
+def add_item():
+    """Attempts to add new word. If word exists in database 
+    display error messsage. Otherwise add word. No arguments,
+    returns nothing"""
+
+    # Get user input to be stored in the database
+    item = input("Name: ")
+    definition = input(f'What is the definition of {item}? ')
+    price = input("Price: ")
+
+    # Check the collection to see if the item is in it.
+    result = db.collection("menu").document(item).get()
+    if result.exists:
+        print("That word has already been stored.")
+        return
+    # else:
+    data = {
+        "word" : item,
+        "defintion" : definition,
+        "price" : price
+    }
+    
+    db.collection("menu").document(item).set(data)
+
+def check_all_items():
+
+
+    print("Select From the Following:")
+    print("1) Show All Inventory")        
+    choice = input("")
+    print()
+
+
+    if choice == "1":
+        menu_items = db.collection("menu").stream()
     else:
-        expression.append(integers)
-        expression.append(None)
+        print("Invalid Selection")
+        return
+    
+    for item in menu_items:
+        print(f"{item.id} => {item.to_dict()}")
+    print() 
 
-        # Resets the previous statements to allow for another round of integers and operators
-        split_expression = False
+def delete_item():
+    print("this currently does't work and will probably throw an error after this message ---")
+    to_del = input("Name of item to delete: ")
 
-        assert split_expression == False, "Make sure that the above expression resets to False or it won't add numbers correctly"
+    # Get all items to check if the item to delete exists before being removed.
+    items = db.collection("menu").stream()
+
+    if to_del in items:
+        pass
         
-        integers = ''
 
-# Get rid of leftover None in list
-expression.pop()
 
-# Take the None sections of the problem and be able to replace them with their proper operator
-for i in range(len(expression) - 1, 0, -1):
-    if expression[i] == None:
-        expression[i] = operator_stack.pop()
-number1 = expression[0]
-for i in range(len(expression) - 2):
-    operator = expression[i + 1]
-    number2 = expression[i + 2]
+def main():
 
-    number1 = eval(number1, operator, number2)
-    print(number1)
+    # Boundaries for user until quit is selected
+    done = False
+    while not done:
+        user_selection = menu()
+        
+        if user_selection == 1:
+            add_item()
 
+        elif user_selection == 2:
+            check_all_items()
+
+        elif user_selection == 3:
+            delete_item()
+        
+        elif user_selection == 4:
+            done = True
+            "Thank you for using our Cloud Service Menu System"
+
+        # Error handling if user enters a bad input
+        else:
+            print('Please select a number within 1-4')
+
+
+main()
